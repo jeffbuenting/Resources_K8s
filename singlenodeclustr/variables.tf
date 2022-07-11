@@ -37,7 +37,7 @@ variable VMConfig {
     description = "VM Config"
     type = map
     default = {
-        Name = "KW-K8s-02"
+        Name = "KW-K8s-01"
         Domain = "localdomain"
         Folder = "K8s"
         CPU = 2

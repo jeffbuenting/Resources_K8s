@@ -87,7 +87,7 @@ resource "vsphere_virtual_machine" "vm" {
     inline = [
       "echo ${var.AdminPW} | sudo -S subscription-manager register --username ${var.RHEL_Sub_user} --password ${var.RHEL_Sub_PW} --auto-attach",
       "echo ${var.AdminPW} | sudo -S yum update -y",
-      "echo ${var.AdminPW} | sudo -S yum install -y yum-utils",
+      "echo ${var.AdminPW} | sudo -S yum install -y yum-utils nfs-utils git",
       "echo ${var.AdminPW} | sudo -S yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
       "echo ${var.AdminPW} | sudo -S yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin --allowerasing",
       "echo ${var.AdminPW} | sudo -S mkdir /etc/docker",
@@ -95,7 +95,15 @@ resource "vsphere_virtual_machine" "vm" {
       "echo ${var.AdminPW} | sudo -S systemctl start docker",
       "echo ${var.AdminPW} | sudo -S systemctl enable docker.service",
       "echo ${var.AdminPW} | sudo -S systemctl enable containerd.service",
-      "echo ${var.AdminPW} | sudo -S curl -sfL https://get.k3s.io | sh -s - --docker --disable=traefik --write-kubeconfig-mode=644"
+      "echo ${var.AdminPW} | sudo -S curl -sfL https://get.k3s.io | sh -s - --docker --disable=traefik --write-kubeconfig-mode=644",
+      "git clone https://github.com/sixeyed/kiamol",
+      "curl -LO https://dl.k8s.io/release/v1.24.0/bin/linux/amd64/kubectl",
+      "chmod +x ./kubectl",
+      "echo ${var.AdminPW} | sudo -S mv ./kubectl /usr/local/bin/kubectl",
+      "echo ${var.AdminPW} | sudo -S mkdir .kube",
+      "echo ${var.AdminPW} | sudo -S cp /etc/rancher/k3s/k3s.yaml .kube/config",
+      "echo ${var.AdminPW} | sudo -S chmod 644 .kube/config",
+      "export KUBECONFIG=.kube/config"      
     ]
   }
 }
