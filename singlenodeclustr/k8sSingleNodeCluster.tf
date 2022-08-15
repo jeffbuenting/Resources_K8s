@@ -76,6 +76,12 @@ resource "vsphere_virtual_machine" "vm" {
     destination = "/tmp/daemon.json"
   }
 
+  # ----- Install the NFS storage provider for K3s and configure dynamic storage provisioning
+  provisioner "file" {
+    source      = "../storage/nfs.yaml"
+    destination = "/tmp/nfs.yaml"
+  }
+
   connection {
     type = "ssh"
     user = var.AdminAcct
@@ -103,7 +109,10 @@ resource "vsphere_virtual_machine" "vm" {
       "echo ${var.AdminPW} | sudo -S mkdir .kube",
       "echo ${var.AdminPW} | sudo -S cp /etc/rancher/k3s/k3s.yaml .kube/config",
       "echo ${var.AdminPW} | sudo -S chmod 644 .kube/config",
-      "export KUBECONFIG=.kube/config"      
+      "export KUBECONFIG=.kube/config"  ,
+      "echo ${var.AdminPW} | sudo -S mv tmp/nfs.yaml /var/lib/rancher/k3s/server/manifests/nfs.yaml"
     ]
   }
+
+  
 }

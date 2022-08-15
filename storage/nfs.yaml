@@ -9,6 +9,5 @@ spec:
   targetNamespace: default
   set:
     nfs.server: 192.168.1.23
-    nfs.path: /containers
+    nfs.path: /mnt/DroboFS/Shares/Containers
     storageClass.name: nfs
-    storageClass.reclaimpolicy: Retain
