@@ -25,10 +25,11 @@ variable ISODatastore {
     default = "NFS-Drobo"
 }
 
+# ----- With a standalone single node VMWare cluster use the host name / IP for the Cluster Name
 variable VMCluster {
     description = "vCenter Cluster"
     type = string
-    default = "KWVMwareCluster01"
+    default = "192.168.1.14"
 }
 
 # ----- VM Settings
@@ -48,32 +49,36 @@ variable VMs {
         Domain=string,
         Folder=string,
         CPU=number,
-        RAM=number
+        RAM=number,
+        K3sRole=string
     }))
 
     default = [
         {
             Name = "KW-k8s-10"
             Domain = "localdomain"
-            Folder = "K8s"
+            Folder = "PaaS/Prod"
             CPU = 2
             RAM = 4096
+            K3sRole = "master"
         },  
 
         {
             Name = "KW-k8s-11"
             Domain = "localdomain"
-            Folder = "K8s"
+            Folder = "PaaS/Prod"
             CPU = 2
             RAM = 4096
+            K3sRole = "master"
         },
 
         {
             Name = "KW-k8s-12"
             Domain = "localdomain"
-            Folder = "K8s"
+            Folder = "PaaS/Prod"
             CPU = 2
             RAM = 4096
+            K3sRole = "master"
         }
     ]
 }
@@ -92,4 +97,12 @@ variable "RHEL_Sub_user" {
 
 variable "RHEL_Sub_PW" {
     type = string
+}
+
+variable "Role" {
+    type=string
+}
+
+variable "K3STOKEN" {
+    type=string
 }
