@@ -12,3 +12,8 @@ variable "storageclassname" {
   description = "name of new storage class"
   type        = string
 }
+
+variable "storageclassreclaimpolicy" {
+  description = "Delete or Retain"
+  type        = string
+}

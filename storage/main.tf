@@ -30,4 +30,8 @@ resource "helm_release" "nfs" {
     name  = "storageClass.name"
     value = var.storageclassname
   }
+  set {
+    name  = "storageClass.reclaimPolicy"
+    value = var.storageclassreclaimpolicy
+  }
 }
