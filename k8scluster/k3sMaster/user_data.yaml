@@ -24,6 +24,7 @@ packages:
   - ca-certificates 
   - curl 
   - software-properties-common
+  - nfs-common
 
 
 write_files:
