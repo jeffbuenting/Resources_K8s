@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-demo
+data:
+  pods.1: details-v1-698b5d8c98-p22rg
+  pods.2: productpage-v1-bf4b489d8-24r7t
+  pods.3: ratings-v1-5967f59c58-t8696
+  pods.4: reviews-v1-9c6bb6658-bcw66
+  pods.5: reviews-v2-8454bb78d8-w6w74
+  pods.6: reviews-v3-6dc9897554-tcsrz
+  deployments.1: details-v1
+  deployments.2: productpage-v1
+  deployments.3: ratings-v1
+  deployments.4: reviews-v1
+  deployments.5: reviews-v2
+  deployments.6: reviews-v3
+  services.2: details
+  services.2: productpage
+  services.3: ratings
+  services.4: reviews 
